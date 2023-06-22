@@ -1,5 +1,6 @@
 class Solution:
     def rob(self, nums: list[int]) -> int:
+        self.nums= nums
         saved_sols_with0, saved_sols_without0 = {}, {}
         mx_loot = 0 
         for i, num in enumerate(nums):
@@ -17,7 +18,8 @@ class Solution:
                 for sol in previous_sols:
                     if sol in saved_sols_without0:
                         new_loot = saved_sols_without0[sol]+num
-                        saved_sols_without0[i] = new_loot
+                        if saved_sols_without0[i] < new_loot:
+                            saved_sols_without0[i] = new_loot
                         if new_loot>mx_loot:
                             mx_loot = new_loot
             else:
@@ -27,21 +29,29 @@ class Solution:
                 for sol in previous_sols:
                     if sol in saved_sols_with0:
                         new_loot = saved_sols_with0[sol]+num
-                        saved_sols_with0[i] = new_loot
+                        if i not in saved_sols_with0:
+                            saved_sols_with0[i] = new_loot
+                        elif saved_sols_with0[i] < new_loot:
+                            saved_sols_with0[i] = new_loot
+
                         if new_loot>mx_loot:
                             mx_loot = new_loot
                     
                     if sol in saved_sols_without0:
                         new_loot = saved_sols_without0[sol]+num
-                        saved_sols_without0[i] = new_loot
+                        if saved_sols_without0[i] < new_loot:
+                            saved_sols_without0[i] = new_loot
                         if new_loot>mx_loot:
                             mx_loot = new_loot
 
         return mx_loot
     
+
+import random
 if __name__ == "__main__":
     s = Solution()
-    ans = s.rob(nums=[2,5,7,1000,10000])
+    ans = s.rob(nums=[random.randint(0,1000) for _ in range(100)])
+    print(s.nums)
     print("Answer=", ans)
 
 
