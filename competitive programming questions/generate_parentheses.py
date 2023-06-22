@@ -12,39 +12,29 @@ class Solution:
                         s.pop()
                 else:
                     raise Exception("INVALID CANDIDATE")
-            
-            return True
+            return len(s) == 0
         
         def generate_perms(n):
-            parens = "("*n+")"*n
-            q = [char for char in parens]
-
-            perms = set()
+            q = ["("]
+            perms = []
             while len(q):
                 s = q.pop(0)
-                if len(s) == 2*n:
-                    perms.add(s)
-                
-                else:
-                    open_brackets = len([char for char in s if s=="("])
-                    closed_brackets = len([char for char in s if s==")"])
-                    additions = ["("]*(n-open_brackets)+[")"]*(n-closed_brackets)
-
+                if len(s) == 2*n and correct_paren(s):
+                    perms.append(s)
+                else:   
+                    open_brackets = int(len([char for char in s if char=="("])<n)
+                    closed_brackets = int(len([char for char in s if char==")"])<n)
+                    additions = ["("]*(open_brackets)+[")"]*(closed_brackets)
                     for addition in additions:
-                        q.add(s+addition)
+                        q.append(s+addition)
 
             return perms
 
         perms =  generate_perms(n)
-        rlist= [perm for perm in perms if correct_paren(perm)]
-        return rlist
-
-
-
-
+        return perms
 
 if __name__ == "__main__":
     s = Solution()
-    n = 3
+    n = 8
     ans = s.generateParenthesis(n=n)
     print("Answer=",ans)
