@@ -7,9 +7,26 @@ class Solution:
         for len_substring in range(2,length+1):
             for start_idx  in range(0,length+1-len_substring):
                 substring = s[start_idx:start_idx+len_substring]
-                print(substring)
+                #print(substring)
                 if self.isPalindrome(substring):
                     valid_palindromes.add((start_idx,start_idx+len_substring))
+
+        substrings = {(start_idx,start_idx+len_substring) for len_substring in range(1,length+1) for start_idx  in range(0,length+1-len_substring)}
+        print(substrings)
+        
+        subtring_palindrome_comps= {}
+
+        # for len_substring in range(2,length+1):
+        #     for start_idx  in range(0,length+1-len_substring):
+        #         substring = s[start_idx:start_idx+len_substring]
+        #         print(substring)
+        #         if self.isPalindrome(substring):
+        #             valid_palindromes.add((start_idx,start_idx+len_substring))
+
+
+
+
+
     
     def isPalindrome(self, q_string):
         return q_string == q_string[::-1]
