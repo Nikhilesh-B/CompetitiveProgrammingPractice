@@ -1,5 +1,3 @@
-
-
 class Solution:
     def get_children(self,row,col,m,n):
         neighs = []
