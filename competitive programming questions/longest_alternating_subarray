@@ -1,0 +1,43 @@
+class Solution:
+    def alternatingSubarray(self, nums: list[int]) -> int:
+        ans = -1 
+
+        running_count = 1
+        for i, num in enumerate(nums):
+            if i == 0:
+                continue
+            else:
+                prev_num = nums[i-1]
+                if num-prev_num == (-1)**(i+1):
+                    running_count += 1
+                else:
+                    running_count = 1
+                
+                if running_count > ans and running_count>1:
+                    ans = running_count
+
+        for i, num in enumerate(nums[1:]):
+            if i == 0:
+                continue
+            else:
+                prev_num = nums[i-1]
+                if num-prev_num == (-1)**(i+1):
+                    running_count += 1
+                else:
+                    running_count = 1
+                
+                if running_count > ans and running_count>1:
+                    ans = running_count
+
+        return ans
+
+
+
+
+
+if __name__ == "__main__":
+    sol = Solution()
+    nums = [2,3,4,3,4]
+
+    ans = sol.alternatingSubarray(nums=nums)
+    print(ans)

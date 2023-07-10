@@ -2,16 +2,24 @@ from collections import Counter
 
 class Solution:
     def longestConsecutive(self, nums: list[int]) -> int:
-        mx = max(nums)
-        mn = min(nums)
+        if not nums:
+            return 0
+        
+        freqs = set(nums)
+        for f in freqs.copy():
+            if f-1 not in freqs and f+1 not in freqs:
+                freqs.discard(f)
+        
+        if not freqs:
+            return 0
 
-        freqs = Counter(nums)
+        mn = min(freqs)
+        mx = max(freqs)
 
         sorted_list = []
-
         for i in range(mn, mx+1):
             if i in freqs:
-                sorted_list += [i for _ in range(freqs[i])]
+                sorted_list += [i]
 
         max_consec = 1
         curr_consec = 1
@@ -30,6 +38,8 @@ class Solution:
 import random
 if __name__ == "__main__":
     sol = Solution()
-    length = 10
-    nums = [random.randint(int(-1*10**9),int(10**9)) for _ in range(10)]
+    length = int(10**5)
+    magnitude = 10**9
+    nums = [random.randint(int(-1*magnitude),int(magnitude)) for _ in range(length)]
+    print("nums=",nums)
     print("Ans=", sol.longestConsecutive(nums=nums))
