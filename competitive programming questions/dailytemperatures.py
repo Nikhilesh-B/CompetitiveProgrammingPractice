@@ -2,7 +2,6 @@ class Solution:
     def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
         length = len(temperatures)
         answer = [-1 for _ in range(length)]
-
         for j in range(length-1,-1,-1):
             flag = False
             if j == length-1:

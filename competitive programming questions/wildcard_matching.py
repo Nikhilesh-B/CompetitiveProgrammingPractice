@@ -5,7 +5,6 @@ class Solution(object):
         :type p: str
         :rtype: bool
         """
-
         def matches(s, p):
             saved_sols = {}
 

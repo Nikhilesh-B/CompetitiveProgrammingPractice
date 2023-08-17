@@ -22,6 +22,12 @@ class Solution:
             if f not in candidate or (f in candidate and candidate[f]<freqs[f]):
                 neighs.append(f)
         return neighs
+    
+    def good2go(self, freqs, counts):
+        for key in freqs:
+            if freqs[key] < counts[key]:
+                return False
+        return True
 
 
     def canPartition(self, nums: list[int]) -> bool:
@@ -32,18 +38,32 @@ class Solution:
         nums = set(nums)
         explored = set()
         q = [[n] for n in nums]
+        saved_sums = dict()
         while q:
-            print(q)
             cand = q.pop(0)
+            print("XXXX")
+            print(q)
+            print("XXXX")
             tup = tuple(cand)
-            if sum(tup) == desired_sum: return True
-            neigs = self.findNeighs(cand, freqs)
-            for n in neigs:
-                new_cand = sorted(cand+[n])
-                new_tup = tuple(new_cand)
-                if new_tup not in explored:
-                    q.append(new_cand)
-                    explored.add(new_tup)
+            stup = sum(tup)
+            if stup not in saved_sums:
+                saved_sums[stup] = [tup]
+            else:
+                saved_sums[stup].append(tup)
+            if stup == desired_sum: return True
+            if desired_sum-stup in saved_sums: 
+                for ntup in saved_sums[desired_sum-stup]:
+                    new_counter = Counter(cand+list(ntup))
+                    if self.good2go(freqs=freqs,counts=new_counter): 
+                        return True
+            if stup < desired_sum: 
+                neigs = self.findNeighs(cand, freqs)
+                for n in neigs:
+                    new_cand = sorted(cand+[n])
+                    new_tup = tuple(new_cand)
+                    if new_tup not in explored:
+                        q.append(new_cand)
+                        explored.add(new_tup)
             
         return False
 
@@ -106,11 +126,28 @@ class Solution:
                                 q.append(sum+num)
 
         return desired_sum in sums
+    
+
+
+    def canPartition3(self, nums):
+        
+        freqs = Counter(nums)
+        
+        q = [[]]
+
+
+
+
+        pass
+
+import random
 
 if __name__ == "__main__":
     sol = Solution()
-    ans = sol.canPartition(nums=[i for i in range(1,15)])
+    nums = [random.randint(1,100) for _ in range(15)]
+    print("the length is", len(nums), nums)
+    ans = sol.canPartition(nums=nums)
     print("Here the answer is", ans)
-
+    print("Nums is ", nums)
     #[1,5,5,11] #the properyy of how the numbers rise in value over time helps tremendously 
     # 1+5+14+2 = 2+10+10 
