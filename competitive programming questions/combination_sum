@@ -1,0 +1,37 @@
+class Solution:
+    def __init__(self):
+        self.sols = []
+        self.explored = set()
+        
+    def findSols(self, candidates, target, curr_arr):
+            if sum(curr_arr) == target:
+                self.sols.append(curr_arr)
+
+            elif sum(curr_arr) > target:
+                return
+
+            else:
+                for cand in candidates:
+                    new_arr = sorted(curr_arr+[cand])
+                    new_tuple = tuple(new_arr)
+                    if new_tuple not in self.explored:
+                        self.explored.add(new_tuple)
+                        self.findSols(candidates, target, new_arr)
+
+    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
+        self.findSols(candidates=candidates,target=target,curr_arr=[])
+        return self.sols
+
+
+
+import random
+if __name__ == "__main__":
+    candidates = list(set([random.randint(2,40) for _ in range(30)]))
+    print(candidates)
+    target = 40
+    sol = Solution()
+    print(sol.combinationSum(candidates=candidates,target=target))
+
+
+
+    

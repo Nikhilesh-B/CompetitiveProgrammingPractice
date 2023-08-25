@@ -12,39 +12,21 @@ import sys
 # The function accepts following parameters:
 #  1. INTEGER n
 #  2. INTEGER_ARRAY arr
-#
 
 import numpy as np
 def candies(n, arr):
-    start_of_decreasing_sequence = {0:0}
-    current_val = 1
-    min_sum = 0
-    values = []
-
+    values = [1 for _ in range(n)]
     for i, elem in enumerate(arr):
-        if i == 0:
-            continue
+        if i>0 and i<len(arr)-1:
+            if arr[i-1] > elem:
+                values[i] = max(values[i-1]+1, values[i])
+    
+    for i in range(n-2,-1,-1):
+        if arr[i] > arr[i+1]:
+                values[i] = max(values[i+1]+1, values[i])
 
-        prev_num = arr[i-1]
-        if prev_num<elem:
-            current_val += 1            
-
-        elif prev_num>elem:
-            if current_val == 1:
-                min_sum += i-start_of_decreasing_sequence[i-1]
-                start_of_decreasing_sequence = start_of_decreasing_sequence[i]
-                
-            else:
-                if current_val == 2:
-                    start_of_decreasing_sequence[i] = i 
-                current_val = 1   
-        values.append(current_val)         
-        min_sum += current_val
-        
-    return min_sum
-    # Write your code here
-
+    return sum(values)
 if __name__ == '__main__':
-    arr = [1,2,3]
+    arr = [4,6,4,5,6,2]
     n = len(arr)
     print(candies(n, arr))
