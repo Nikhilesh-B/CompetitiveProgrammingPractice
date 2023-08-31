@@ -7,60 +7,55 @@ import re
 import sys
 
 
-
-#
-# Complete the 'palindromeIndex' function below.
-#
-# The function is expected to return an INTEGER.
-# The function accepts STRING s as parameter.
-#
-
 def fwd_check(fwd_s):
-    stk = []
-    mistakes = 0
-    
-    for i, char in enumerate(fwd_s):
-        stk.append(char)
-    new_s = ""
-    
+    mistakes = 0    
     curr_mistake_idx = -1
-    while stk:
-        new_s += stk.pop()
-        if new_s[-1] != fwd_s[len(new_s)-1]:
-            new_s = new_s[:-1]
-            mistakes += 1
-            curr_mistake_idx=(len(fwd_s)-1-len(new_s)-1)
-        
-        if mistakes==2:
+    i, j = 0, len(fwd_s)-1
+    while i<j:
+        if i==j and mistakes<2:
+            return curr_mistake_idx, True
+        elif fwd_s[i]==fwd_s[j]:
+            i+=1
+            j-=1
+        elif fwd_s[i]!=fwd_s[j] and mistakes<2:
+            curr_mistake_idx = i
+            mistakes+=1
+            i+=1
+        else:
             return -1, False
-        
+
     return curr_mistake_idx, True
     
-def bwd_check(bwd_s):
-    stk = []
-    mistakes = 0
-    
-    for i, char in enumerate(bwd_s):
-        stk.append(char)
-    new_s = ""
-    
+def bwd_check(fwd_s):
+    mistakes = 0    
     curr_mistake_idx = -1
-    while stk:
-        new_s += stk.pop()
-        if new_s[-1] != bwd_s[len(new_s)-1]:
-            new_s = new_s[:-1]
-            mistakes += 1
-            curr_mistake_idx=(len(new_s)-1)
-        
-        if mistakes==2:
+    i, j = 0, len(fwd_s)-1
+    while i<j:
+        if i==j and mistakes<2:
+            return curr_mistake_idx, True
+        elif fwd_s[i]==fwd_s[j]:
+            i+=1
+            j-=1
+        elif fwd_s[i]!=fwd_s[j] and mistakes<2:
+            curr_mistake_idx = j
+            mistakes+=1
+            j-=1
+        else:
             return -1, False
-        
+
     return curr_mistake_idx, True
 
 def palindromeIndex(s):
+    if s == s[::-1]:
+        return -1
+
     fwd_idx, fwd_val = fwd_check(s)
-    bwd_idx, bwd_val = bwd_check(s[::-1])
+    print(s)
+    bwd_idx, bwd_val = bwd_check(s)
+    print(s)
     
+    print(fwd_idx, fwd_val)
+    print(bwd_idx, bwd_val)
     if fwd_val and bwd_val:
         return fwd_idx
     elif fwd_val:
@@ -71,5 +66,5 @@ def palindromeIndex(s):
         return -1
 
 if __name__ == "__main__":
-    string = 'aaab'
+    string = 'hjfiwwiwfjh'
     print(palindromeIndex(s=string))
