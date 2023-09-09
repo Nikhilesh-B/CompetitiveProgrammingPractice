@@ -1,5 +1,4 @@
 import math
-
 def most_water(walls):
     m = len(walls)
     lhs = [(walls[0],0) for _ in range(m)]
