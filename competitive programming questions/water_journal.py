@@ -20,8 +20,8 @@ def compute():
         if wl==mx:
             mx_seen = True
 
-    if mn == mx:
-        print(mx)
+    if (not mx_seen) and (not mn_seen):
+        print(-1)
         return
 
 
@@ -34,7 +34,7 @@ def compute():
         return
     
     for i in range(mn, mx+1):
-        print(i, end=' \n')
+        print(i)
 
 
 if __name__ == "__main__":
