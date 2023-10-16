@@ -1,4 +1,3 @@
-
 def process_nums(nums):
     ones = dict()  # keyed on each individual index
     zeroes = dict()  # keyed on each individual index
