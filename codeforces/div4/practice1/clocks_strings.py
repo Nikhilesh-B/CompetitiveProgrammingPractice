@@ -9,9 +9,9 @@ if __name__ ==  "__main__":
         bob_strings = case[2:]
         alice_strings.sort()
         bob_strings.sort()
-        if alice_strings[0] < bob_strings[0] and alice_strings[1] < bob_strings[1]:
+        if alice_strings[0] < bob_strings[0] and bob_strings[0] < alice_strings[1] and alice_strings[1] < bob_strings[1]:
             print("YES")
-        elif alice_strings[0] > bob_strings[0] and alice_strings[1] > bob_strings[1]:
+        elif alice_strings[0] > bob_strings[0] and alice_strings[1] > bob_strings[1] and bob_strings[1] > alice_strings[0]:
             print("YES")
         else:
             print("NO")
