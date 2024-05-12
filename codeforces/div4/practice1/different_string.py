@@ -14,8 +14,12 @@ def rearrange(s):
 
 if __name__ == "__main__":
     t = int(input())
+    strings = []
     for _ in range(t):
         s = input()
+        strings.append(s)
+
+    for s in strings:
         if all_same(s):
             print("NO")
         else:
