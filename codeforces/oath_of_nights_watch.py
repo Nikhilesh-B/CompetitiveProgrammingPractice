@@ -30,3 +30,5 @@ if __name__ == "__main__":
     strs = input().split(" ")
     strs = [int(s) for s in strs]
     print(num_to_feed(strs, n_stew))
+
+    # O(nlogn) run time, O(n) space
