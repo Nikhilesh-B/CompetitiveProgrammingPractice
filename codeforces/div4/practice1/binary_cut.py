@@ -5,7 +5,6 @@ if __name__ == "__main__":
         a = input()
         binary_strings.append(a)
 
-    print(binary_strings)
     for binary_string in binary_strings:
         pieces = 1
         zero_one = False
