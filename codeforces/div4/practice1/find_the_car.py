@@ -19,14 +19,7 @@ if __name__ == "__main__":
         arr_times.append(times)
         for _ in range(q):
             queries.append(int(input()))
-        arr_queries.append(queries)
-
-
-    # print('This is n_k_qs', n_k_qs)
-    # print('This is arr_distances', arr_distances)
-    # print('This is arr_times', arr_times)
-    # print('This is arr_queries', arr_queries)
-    # print('This is t', t)   
+        arr_queries.append(queries) 
 
     for j in range(t):
         n_k_q = n_k_qs[j]
