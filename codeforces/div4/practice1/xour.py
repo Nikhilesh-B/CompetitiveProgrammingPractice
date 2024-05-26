@@ -37,6 +37,8 @@ class XOUR_solution():
         return ordered_lst
 
     def make_updates_to_stored_positions(self, larger_val, larger_idx, smaller_val, smaller_idx):
+        print("swapping", larger_val, "at", larger_idx,
+              "with", smaller_val, "at", smaller_idx)
         self.positions_of_elements[larger_val] = self.remove_and_preserveOrder(
             self.positions_of_elements[larger_val], larger_idx)
         self.positions_of_elements[smaller_val] = self.remove_and_preserveOrder(
@@ -54,8 +56,9 @@ class XOUR_solution():
 
         while i < n:
             curr_element = self.arr[i]
-            for j in range(3, 1, -1):
+            for j in range(3, 0, -1):
                 new_candidate = curr_element-j
+                print(new_candidate)
                 if new_candidate in self.set_of_elements:
                     last_position_of_new_candidate = self.last_position_of_elements[new_candidate]
                     if last_position_of_new_candidate > i:
@@ -72,9 +75,7 @@ if __name__ == "__main__":
     all_lsts = []
     for _ in range(t):
         n = int(input())
-        arr = []
-        for _ in range(n):
-            arr.append(int(input()))
+        arr = list(map(int, input().split()))
         all_lsts.append(arr)
 
     for lst in all_lsts:
