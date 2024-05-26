@@ -31,15 +31,15 @@ class XOUR_solution():
         ordered_lst.insert(insertion_idx, insertion_val)
         return ordered_lst
 
-    def remove_and_preserveOrder(self, ordered_lst, removal_val):
+    def remove_and_preserve_order(self, ordered_lst, removal_val):
         removal_idx = bisect.bisect_left(ordered_lst, removal_val)
         ordered_lst.pop(removal_idx)
         return ordered_lst
 
     def make_updates_to_stored_positions(self, larger_val, larger_idx, smaller_val, smaller_idx):
-        self.positions_of_elements[larger_val] = self.remove_and_preserveOrder(
+        self.positions_of_elements[larger_val] = self.remove_and_preserve_order(
             self.positions_of_elements[larger_val], larger_idx)
-        self.positions_of_elements[smaller_val] = self.remove_and_preserveOrder(
+        self.positions_of_elements[smaller_val] = self.remove_and_preserve_order(
             self.positions_of_elements[smaller_val], smaller_idx)
         self.positions_of_elements[larger_val] = self.insert_and_preserve_order(
             self.positions_of_elements[larger_val], smaller_idx)
