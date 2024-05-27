@@ -19,7 +19,7 @@ if __name__ == "__main__":
         arr_times.append(times)
         for _ in range(q):
             queries.append(int(input()))
-        arr_queries.append(queries) 
+        arr_queries.append(queries)
 
     for j in range(t):
         n_k_q = n_k_qs[j]
@@ -44,4 +44,5 @@ if __name__ == "__main__":
                     distances[left_idx] - distances[right_idx]) / (times[left_idx] - times[right_idx])
                 time_to_reach_from_left_idx = (
                     query_distance - distances[left_idx]) / speed_between_points
-                print(int(times[left_idx] + time_to_reach_from_left_idx), end=end_str)
+                print(int(times[left_idx] +
+                      time_to_reach_from_left_idx), end=end_str)

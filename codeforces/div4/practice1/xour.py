@@ -54,7 +54,7 @@ class XOUR_solution():
 
         while i < n:
             curr_element = self.arr[i]
-            for j in range(3, 0, -1):
+            for j in range(2, 0, -1):
                 new_candidate = curr_element-j
                 if new_candidate in self.set_of_elements:
                     last_position_of_new_candidate = self.last_position_of_elements[new_candidate]
