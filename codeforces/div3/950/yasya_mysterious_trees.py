@@ -2,7 +2,6 @@ def XOR_all_edges(x, edge_dict):
     for edge in edge_dict:
         edge_dict[edge] = edge_dict[edge] ^ x
 
-
 def dfs_max_cycle_XOR(node, weight, adj_list):
     max_cycle_xor = -1
     visited = set()
@@ -32,7 +31,7 @@ def print_max_cycle_XOR(node, weight, edge_dict):
         adj_list[v].append((u, edge_dict[edge]))
     
     max_cycle_XOR = dfs_max_cycle_XOR(node, weight, adj_list)
-    print(max_cycle_XOR)
+    print(max_cycle_XOR, end=" ")
 
 def process_case(n, m, edge_dict, query_set):
     for qidx in range(m):
@@ -52,16 +51,16 @@ if __name__ == "__main__":
     edge_dicts = {}
     queries = {}
     for i in range(t):
-        n_m = map(int, input().split())
+        n_m = list(map(int, input().split()))
         n, m = n_m[0], n_m[1]
         n_s[i] = n
         m_s[i] = m
-        for _ in range(n):
-            u_v_w = map(int, input().split())
+        for _ in range(n-1):
+            u_v_w = list(map(int, input().split()))
             u = u_v_w[0]
             v = u_v_w[1]
             w = u_v_w[2]
-            edge_pair = sorted((u,v))
+            edge_pair = tuple(sorted((u,v)))
             if i not in edge_dicts:
                 edge_dicts[i]= {edge_pair: w}
             else:
@@ -81,5 +80,5 @@ if __name__ == "__main__":
                 queries[i][j]= query_tuple
     
     for i in range(t):
-        n, m, edge_dict = n_s[i], m_s[i], edge_dicts[i], queries[i]
-        process_case(n, m, edge_dict, queries[i])
+        n, m, edge_dict, query_set = n_s[i], m_s[i], edge_dicts[i], queries[i]
+        process_case(n, m, edge_dict, query_set)
