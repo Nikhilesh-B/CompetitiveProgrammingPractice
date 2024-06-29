@@ -1,4 +1,4 @@
-// DFS implementation to find a specific node
+// BFS implementation to find a specific node
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -20,7 +20,7 @@ vector<int> dfs_find_neighbors(vector<vector<int>> &adj_matrix, int node_idx)
 
     for (int i = 0; i < node_size; ++i)
     {
-        if (adj_matrix[node_idx][i] == 1 & i != node_idx)
+        if (adj_matrix[node_idx][i] == 1 && i != node_idx)
         {
             neighbors.push_back(i);
         }
@@ -43,7 +43,7 @@ int dfs_find_values(vector<vector<int>> &adj_matrix, unordered_map<int, int> &va
         {
             if (values[n] == target)
                 return n;
-            if (explored.find(n) != explored.end())
+            if (explored.find(n) == explored.end())
                 fifo_quque.push_back(n);
         }
     }
