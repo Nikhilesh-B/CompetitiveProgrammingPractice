@@ -94,7 +94,6 @@ void print_matrix(vector<vector<int>> &adj_matrix)
 
 int main()
 {
-    int n = 4;
     vector<vector<int>> adj_matrix = {{0, 2, 1, 2, 1},
                                       {2, 0, 1, 1, 13},
                                       {1, 1, 0, 2, 12},

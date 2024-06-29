@@ -23,6 +23,8 @@
     "cstdlib": "cpp",
     "cmath": "cpp",
     "deque": "cpp",
-    "tuple": "cpp"
+    "tuple": "cpp",
+    "functional": "cpp",
+    "queue": "cpp"
   }
 }
