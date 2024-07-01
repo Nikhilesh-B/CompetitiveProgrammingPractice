@@ -58,14 +58,15 @@ int djikstra(vector<vector<int>> &adj_matrix, int source_node_idx, int target_id
 
 int main()
 {
-    vector<vector<int>> adj_matrix = {{0, 3, 5},
+    vector<vector<int>> adj_matrix = {{0, 3, 10},
                                       {3, 0, 6},
-                                      {5, 6, 0}};
+                                      {10, 6, 0}};
 
     int source_node_idx = 0;
     int target_idx = 2;
     int shortest_path = djikstra(adj_matrix, source_node_idx, target_idx);
     if (shortest_path != -1)
+    
         cout << "Shortest path has value " << shortest_path << " between source node idx " << source_node_idx << " and target node idx " << target_idx << endl;
     else
         cout << "No path between node with idx" << target_idx << " and node with idx of " << source_node_idx << endl;
