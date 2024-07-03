@@ -5,10 +5,12 @@ def process_case(n: int, m: int, k: int, a: list[int], d: list[int], f: list[int
     a.sort()
     d.sort()
     f.sort()
+
     target_value = 0
     max_difference = -1
     max_idx = -1
     differences = []
+
     for i in range(n-1):
         differences.append(a[i+1]-a[i])
         if max_difference < a[i+1]-a[i]:
@@ -18,76 +20,47 @@ def process_case(n: int, m: int, k: int, a: list[int], d: list[int], f: list[int
 
     differences.sort()
 
+    insert_val_mn = None
+    insert_val_mx = None
+
     for d_num in d:
         f_target = target_value-d_num
-        a_i = a[max_idx]
-        a_i_1 = a[max_idx+1]
-        b1 = 0 <= bisect.bisect_left(f, f_target) <= k-1
-        b2 = 0 <= bisect.bisect_right(f, f_target) <= k-1
+        lo = a[max_idx]-d_num
+        hi = a[max_idx+1]-d_num
+        lidx = bisect.bisect_left(f, f_target)
+        ridx = bisect.bisect_right(f, f_target)
+        lval, rval = None, None
+        linrange, rinrange = False, False
+        if 0 <= lidx <= k:
+            if lidx != k and f[lidx] == f_target:
+                lval = f[lidx]
+            else:
+                lval = f[lidx-1]
+            if lo <= lval <= hi:
+                linrange = True
+        if 0 <= ridx < k:
+            rval = f[ridx]
+            if lo <= rval <= hi:
+                rinrange = True
 
-        if (b1 and b2):
-            closest_value_less_than = f[bisect.bisect_left(f, f_target)]
-            closest_value_greater_than = f[bisect.bisect_right(f, f_target)]
-            b11 = a_i <= closest_value_less_than <= a_i_1
-            b22 = a_i <= closest_value_greater_than <= a_i_1
+        if (lval != None and linrange):
+            vl1, vl2 = lval-lo, hi-lval
+            if max(vl1, vl2) < max_difference:
+                insert_val_mx = max(vl1, vl2)
+                insert_val_mn = min(vl1, vl2)
+                max_difference = insert_val_mx
 
-            if b11 and b22:
-                v1 = a_i_1-closest_value_less_than
-                v2 = closest_value_less_than-a_i
-                v3 = a_i_1-closest_value_greater_than
-                v4 = closest_value_greater_than-a_i
-                minval1 = min(v1, v2)
-                maxval1 = max(v1, v2)
-                minval2 = min(v3, v4)
-                maxval2 = max(v3, v4)
+        if (rval != None and rinrange):
+            vr1, vr2 = rval-lo, hi-rval
+            if max(vr1, vr2) < max_difference:
+                insert_val_mx = max(vr1, vr2)
+                insert_val_mn = min(vr1, vr2)
+                max_difference = insert_val_mx
 
-                if maxval2 > maxval1 and differences[-1] > maxval1:
-                    differences[-1] = maxval1
-                    differences.insert(0, minval1)
-
-                elif maxval1 >= maxval2 and differences[-1] > maxval2:
-                    differences[-1] = maxval2
-                    differences.insert(0, minval2)
-
-            elif b11:
-                v1 = a_i_1-closest_value_less_than
-                v2 = closest_value_less_than-a_i
-                minval = min(v1, v2)
-                maxval = max(v1, v2)
-                if differences[-1] > maxval:
-                    differences[-1] = maxval
-                    differences.insert(0, minval)
-
-            elif b22:
-                v3 = a_i_1-closest_value_greater_than
-                v4 = closest_value_greater_than-a_i
-                minval = min(v3, v4)
-                maxval = max(v3, v4)
-                if differences[-1] > maxval:
-                    differences[-1] = maxval
-                    differences.insert(0, minval)
-
-        elif (b1):
-            closest_value_less_than = f[bisect.bisect_left(f, f_target)]
-            if (a_i <= closest_value_less_than <= a_i_1):
-                v1 = a_i_1-closest_value_less_than
-                v2 = closest_value_less_than-a_i
-                minval = min(v1, v2)
-                maxval = max(v1, v2)
-                if differences[-1] > maxval:
-                    differences[-1] = maxval
-                    differences.insert(0, minval)
-
-        elif (b2):
-            closest_value_greater_than = f[bisect.bisect_right(f, f_target)]
-            if (a_i <= closest_value_greater_than <= a_i_1):
-                v3 = a_i_1-closest_value_greater_than
-                v4 = closest_value_greater_than-a_i
-                minval = min(v3, v4)
-                maxval = max(v3, v4)
-                if differences[-1] > maxval:
-                    differences[-1] = maxval
-                    differences.insert(0, minval)
+    if (insert_val_mx != None and insert_val_mn != None):
+        differences.pop()
+        # differences.append(insert_val_mn)
+        differences.append(insert_val_mx)
 
     differences.sort()
     return differences[-1]
