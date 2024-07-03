@@ -17,23 +17,16 @@ using namespace std;
 void remove_val(int b, deque<int> &sa)
 {
     auto it = lower_bound(sa.begin(), sa.end(), b);
-    sa.erase(it);
+    if (it != sa.end() && *it == b)
+    {
+        sa.erase(it);
+    }
 }
 
 void insert_val(int b, deque<int> &sa)
 {
     auto it = lower_bound(sa.begin(), sa.end(), b);
     sa.insert(it, b);
-}
-
-void printdeque(deque<int> &sa)
-{
-    cout << endl;
-    for (auto a : sa)
-    {
-        cout << a << ", ";
-    }
-    cout << endl;
 }
 
 void solve()
@@ -47,20 +40,11 @@ void solve()
         a.push_back(x);
     }
 
-    // deque<int> sorted_a = a;
-    // sort(sorted_a.begin(), sorted_a.end());
-
     int max_median = -1;
-
-    for (int i = 0; i < n - 1; ++i)
-        max_median = max(max_median, min(a[i], a[i + 1]));
-
     deque<int> sorted_a = {a[0], a[0]};
-
     int i = 0;
     int j = 0;
-
-    while (j > i)
+    while (j < n)
     {
         if (i == j)
         {
@@ -69,7 +53,6 @@ void solve()
             insert_val(a[j], sorted_a);
         }
 
-        printdeque(sorted_a);
         max_median = max(max_median, sorted_a[(sorted_a.size() + 1) / 2 - 1]);
 
         if (a[i] > a[j])
