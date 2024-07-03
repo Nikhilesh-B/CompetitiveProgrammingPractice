@@ -20,6 +20,15 @@ void remove_val(int b, deque<int> &sa)
     sa.erase(it);
 }
 
+void insert_val(int b, deque<int> &sa)
+{
+    auto it = lower_bound(sa.begin(), sa.end(), b);
+    if (it + 1 != sa.end())
+        sa.insert(it + 1, b);
+    else
+        sa.emplace_back(b);
+}
+
 void solve()
 {
     int n, x;
@@ -31,26 +40,41 @@ void solve()
         a.push_back(x);
     }
 
-    deque<int> sorted_a = a;
-    sort(sorted_a.begin(), sorted_a.end());
+    // deque<int> sorted_a = a;
+    // sort(sorted_a.begin(), sorted_a.end());
 
     int max_median = -1;
 
+    for (int i = 0; i < n - 1; ++i)
+        max_median = max(max_median, min(a[i], a[i + 1]));
+
+    deque<int> sorted_a = {a[0]};
+
     int i = 0;
-    int j = n - 1;
+    int j = 0;
 
     while (j > i)
     {
+        if (i == j)
+        {
+            j++;
+            insert_val(a[j], sorted_a);
+            continue;
+        }
+
         max_median = max(max_median, sorted_a[(sorted_a.size() + 1) / 2 - 1]);
+
         if (a[i] > a[j])
         {
             remove_val(a[j], sorted_a);
-            j--;
+            j++;
+            insert_val(a[j], sorted_a);
         }
         else
         {
             remove_val(a[i], sorted_a);
             i++;
+            insert_val(a[i], sorted_a);
         }
     }
     cout << max_median << endl;
