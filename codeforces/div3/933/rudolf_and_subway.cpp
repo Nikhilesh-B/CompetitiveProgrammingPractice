@@ -19,7 +19,7 @@ typedef tuple<int, int, int> tint;
 
 typedef pair<int, int> ipair;
 
-// u, #colors, set of colors. 
+// u, #colors, set of colors.
 typedef tuple<int, int, unordered_set<int>> tuppq;
 
 int process_case(int n, int m, vector<tint> &edges, int b, int e)
@@ -71,10 +71,10 @@ int process_case(int n, int m, vector<tint> &edges, int b, int e)
             // else
             //     continue;
 
+            unordered_set<int> color_copy = existing_colors;
             if (existing_colors.find(ec) == existing_colors.end() && 1 + u_ncol <= v_ncol)
             {
                 min_colors[v - 1] = 1 + u_ncol;
-                unordered_set<int> color_copy = existing_colors;
                 color_copy.insert(ec);
                 pq.emplace(v, min_colors[v - 1], color_copy);
             }
@@ -82,7 +82,6 @@ int process_case(int n, int m, vector<tint> &edges, int b, int e)
             else if (existing_colors.find(ec) != existing_colors.end() && u_ncol <= v_ncol)
             {
                 min_colors[v - 1] = u_ncol;
-                unordered_set<int> color_copy = existing_colors;
                 pq.emplace(v, min_colors[v - 1], color_copy);
             }
 
