@@ -28,7 +28,7 @@ int process_case(int n, int m, vector<tint> &edges, int b, int e)
     { return get<1>(a) > get<1>(b); };
 
     priority_queue<tuppq, vector<tuppq>, decltype(compare_tuppq)> pq;
-    set<tint> visited;
+    map<tint, int> visited;
 
     // from node, (to node, color value)
     unordered_map<int, vector<ipair>> edge_map;
@@ -66,10 +66,12 @@ int process_case(int n, int m, vector<tint> &edges, int b, int e)
             tint tint_edge = make_tuple(u, v, ec);
             int v_ncol = min_colors[v - 1];
 
-            // if (visited.find(tint_edge) == visited.end())
-            //     visited.insert(tint_edge);
-            // else
-            //     continue;
+            if (visited.find(tint_edge) == visited.end())
+                visited[tint_edge] = 1;
+            else if (visited[tint_edge] == 1)
+                visited[tint_edge] += 1;
+            else
+                continue;
 
             unordered_set<int> color_copy = existing_colors;
             if (existing_colors.find(ec) == existing_colors.end() && 1 + u_ncol <= v_ncol)
@@ -84,18 +86,6 @@ int process_case(int n, int m, vector<tint> &edges, int b, int e)
                 min_colors[v - 1] = u_ncol;
                 pq.emplace(v, min_colors[v - 1], color_copy);
             }
-
-            cout << "EDGE PROCESSED " << u << "->" << v << endl;
-            cout << endl;
-            cout << "TO NODE COLOR:" << ec << endl
-                 << endl;
-            cout << "ALL COLORS IN SET" << endl;
-            for (auto colo : existing_colors)
-                cout << "COLOR " << colo << endl;
-            cout << "CURRENT ANSWER:" << min_colors[e - 1] << endl;
-            cout << "2 node: " << min_colors[1] << endl;
-            cout << "3 node: " << min_colors[2] << endl;
-            cout << "6 node: " << min_colors[5] << endl;
         }
     }
     if (min_colors[e - 1] != INT_MAX)
