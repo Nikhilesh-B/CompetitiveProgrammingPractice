@@ -49,6 +49,7 @@ ll process_case(int n, vector<int> &a)
 int main()
 {
     int t{}, n{}, x;
+    cerr << "Hello this is a test";
     cin >> t;
 
     vector<ll> answers{};
