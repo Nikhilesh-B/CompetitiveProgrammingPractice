@@ -41,33 +41,29 @@ int solve()
     vector<int> a(n, 0);
 
     for (int i = 0; i < n; ++i)
-    {
         cin >> a[i];
-    }
 
-    vector<int> lft(n, a[0]);
-    for (int i = 1; i < n; ++i)
-    {
-        lft[i] = max(a[i - 1], lft[i - 1]);
-    }
-    int cr = a[k - 1];
-    int less_than_k = 0;
+    int r = a[k - 1];
+    int num_higher = 0;
+    vector<int> hi{};
 
     for (int i = 0; i < n; ++i)
     {
-        if (cr > a[i] && cr > lft[i])
-            less_than_k += 1;
-        else if (cr > a[i] && cr >= lft[i])
-            less_than_k += 1;
-        else if (cr >= a[i] && cr > lft[i])
-            continue;
-        else if (cr == a[i] && cr == lft[i])
-            continue;
-        else
-            break;
+        if (a[i] > r || i == k - 1)
+        {
+            hi.emplace_back(i);
+            num_higher += 1;
+        }
     }
 
-    return less_than_k;
+    if (num_higher == 1)
+    {
+        return n - 1;
+    }
+    else
+    {
+        return max(max(hi[0] - 1, 0), hi[1] - (hi[0] ? hi[0] : hi[0] + 1));
+    }
 }
 
 int main()
