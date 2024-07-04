@@ -17,12 +17,13 @@ using namespace std;
 typedef long long ll;
 
 template <typename T>
-void printVectorNL(const std::vector<T> &vec)
+void printVector(const std::vector<T> &vec)
 {
     for (const auto &elem : vec)
     {
-        std::cout << elem << std::endl;
+        std::cout << elem << " ";
     }
+    std::cout << std::endl;
 }
 
 void solve()
@@ -37,15 +38,20 @@ void solve()
     // first pass setting all relevant to zero;
     for (int i = 0; i < n; ++i)
     {
-        for (int j = i + 1; j < n; ++j)
+        for (int j = 0; j < n; ++j)
         {
             cin >> M[i][j];
-            a[i] = ~(a[i] ^ M[i][j]);
-            a[j] = ~(a[j] ^ M[i][j]);
+            if (i != j)
+            {
+                a[i] &= M[i][j];
+                a[j] &= M[i][j];
+            }
         }
     }
 
-    // checking ones line up
+    cout << endl;
+    printVector(a);
+
     for (int i = 0; i < n; ++i)
     {
         for (int j = i + 1; j < n; ++j)
@@ -59,9 +65,7 @@ void solve()
                 bool firstbit = check & 1;
                 bool firstbit_i = a_i & 1;
                 bool firstbit_j = a_j & 1;
-                if (firstbit && (firstbit_i || firstbit_j))
-                    continue;
-                else
+                if (firstbit && !(firstbit_i || firstbit_j))
                 {
                     cout << "NO" << endl;
                     return;
@@ -74,7 +78,7 @@ void solve()
     }
 
     cout << "YES" << endl;
-    printVectorNL(a);
+    printVector(a);
 }
 
 int main()
