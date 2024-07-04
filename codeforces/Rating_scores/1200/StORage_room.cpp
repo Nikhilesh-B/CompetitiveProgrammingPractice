@@ -49,9 +49,6 @@ void solve()
         }
     }
 
-    cout << endl;
-    printVector(a);
-
     for (int i = 0; i < n; ++i)
     {
         for (int j = i + 1; j < n; ++j)
