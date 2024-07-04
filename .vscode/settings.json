@@ -25,6 +25,7 @@
     "deque": "cpp",
     "tuple": "cpp",
     "functional": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "climits": "cpp"
   }
 }

@@ -1,16 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <cmath>
-#include <string>
 #include <deque>
-#include <unordered_map>
-#include <unordered_set>
-#include <list>
-#include <map>
-#include <set>
 #include <climits>
-#include <queue>
 
 using namespace std;
 
@@ -43,14 +35,18 @@ void solve()
     int max_median = -1;
     deque<int> sorted_a = {a[0], a[0]};
     int i = 0;
-    int j = 0;
+    int j = 1; // Start j from 1 since we already added a[0] twice to sorted_a
+
     while (j < n)
     {
         if (i == j)
         {
             remove_val(a[j], sorted_a);
             j++;
-            insert_val(a[j], sorted_a);
+            if (j < n)
+            {
+                insert_val(a[j], sorted_a);
+            }
         }
 
         max_median = max(max_median, sorted_a[(sorted_a.size() + 1) / 2 - 1]);
@@ -59,24 +55,36 @@ void solve()
         {
             remove_val(a[j], sorted_a);
             j++;
-            insert_val(a[j], sorted_a);
+            if (j < n)
+            {
+                insert_val(a[j], sorted_a);
+            }
         }
         else
         {
             remove_val(a[i], sorted_a);
             i++;
-            insert_val(a[i], sorted_a);
+            if (i < n)
+            {
+                insert_val(a[i], sorted_a);
+            }
         }
     }
+
     cout << max_median << endl;
 }
 
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
     int t;
     cin >> t;
     while (t--)
     {
         solve();
     }
+
+    return 0;
 }

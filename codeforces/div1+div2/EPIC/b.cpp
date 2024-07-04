@@ -18,7 +18,7 @@ typedef long long ll;
 
 ll process_case(int n, vector<int> &a)
 {
-    vector<int> defecits{};
+    vector<int> defecits;
     vector<int> greatest_seen_to_left(n, a[0]);
     for (int i = 1; i < n; ++i)
         greatest_seen_to_left[i] = max(greatest_seen_to_left[i - 1], a[i - 1]);
