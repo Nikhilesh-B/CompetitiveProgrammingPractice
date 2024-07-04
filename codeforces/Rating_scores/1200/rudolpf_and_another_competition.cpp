@@ -14,8 +14,8 @@
 #include <queue>
 using namespace std;
 
-typedef pair<int, int> ipair;
-
+typedef long long ll;
+typedef pair<int, ll> ipair;
 template <typename T>
 void printVectorNL(const std::vector<T> &vec)
 {
@@ -36,15 +36,15 @@ int solve()
         for (int j = 0; j < m; ++j)
             cin >> t[i][j];
 
-    vector<ipair> pp(n, {0, 0});
+    vector<ipair> pp(n, {0, 0ll});
 
     for (int i = 0; i < n; ++i)
     {
         vector<int> problems = t[i];
         sort(problems.begin(), problems.end());
-        int time = 0;
+        ll time = 0;
         int solved = 0;
-        int penalty = 0;
+        ll penalty = 0;
         for (auto p : problems)
         {
             if (time + p <= h)
