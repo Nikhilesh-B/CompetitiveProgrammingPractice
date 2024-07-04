@@ -20,7 +20,7 @@ void printVectorNL(const vector<double> &vec)
 {
     for (const auto &elem : vec)
     {
-        std::cout << fixed << setprecision(9) << elem << std::endl;
+        std::cout << fixed << setprecision(20) << elem << std::endl;
     }
 }
 
