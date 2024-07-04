@@ -14,7 +14,9 @@
 
 using namespace std;
 
-int process_case(int n, vector<int> &a)
+typedef long long ll;
+
+ll process_case(int n, vector<int> &a)
 {
     vector<int> defecits{};
     vector<int> greatest_seen_to_left(n, a[0]);
@@ -29,8 +31,8 @@ int process_case(int n, vector<int> &a)
 
     sort(defecits.begin(), defecits.end());
 
-    int total_coins = 0;
-    int current_made_up = 0;
+    ll total_coins = 0;
+    ll current_made_up = 0;
 
     for (int i = 0; i < defecits.size(); ++i)
     {
@@ -49,7 +51,7 @@ int main()
     int t{}, n{}, x;
     cin >> t;
 
-    vector<int> answers{};
+    vector<ll> answers{};
 
     while (t--)
     {
