@@ -21,7 +21,7 @@ void printVectorNL(const std::vector<T> &vec)
 {
     for (const auto &elem : vec)
     {
-        std::cout << std::endl;
+        std::cout << elem << std::endl;
     }
 }
 
@@ -42,14 +42,16 @@ int solve()
     {
         vector<int> problems = t[i];
         sort(problems.begin(), problems.end());
-        int penalty = 0;
+        int time = 0;
         int solved = 0;
+        int penalty = 0;
         for (auto p : problems)
         {
-            if (penalty + p <= h)
+            if (time + p <= h)
             {
                 solved++;
-                penalty += p;
+                time += p;
+                penalty += time;
             }
             else
                 break;
@@ -74,10 +76,13 @@ int solve()
     for (int i = 0; i < n; ++i)
     {
         if (pp[i] == ru_score)
+        {
             ridx = i;
+            break;
+        }
     }
 
-    return ridx;
+    return ridx + 1;
 }
 
 int main()
