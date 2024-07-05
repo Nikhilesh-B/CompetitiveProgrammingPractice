@@ -49,7 +49,6 @@ int solve()
         else
             cmax = a[i];
     }
-
     return total_splits;
 }
 
