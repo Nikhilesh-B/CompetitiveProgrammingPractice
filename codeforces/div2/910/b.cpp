@@ -30,18 +30,19 @@ int solve()
 
     for (int i = 1; i < n; ++i)
     {
-        int divnto = a[i] / cmax;
+        double divnto = static_cast<double>(a[i]) / static_cast<double>(cmax);
+        int divntoi = a[i] / cmax;
 
-        if (divnto > 2)
+        if (divnto > 2.0)
         {
-            total_splits += divnto - 2 + 1;
-            int lftover = a[i] - (divnto - 2) * cmax;
-            cmax = min(lftover / 2, lftover - lftover / 2);
+            total_splits += divntoi - 2 + 1;
+            int lftover = a[i] - (divntoi - 2) * cmax;
+            cmax = min(lftover / 2, lftover - (lftover / 2));
         }
-        else if (divnto > 1)
+        else if (divnto > 1.0)
         {
             total_splits += 1;
-            cmax = min(a[i] / 2, a[i] - a[i] / 2);
+            cmax = min(a[i] / 2, a[i] - (a[i] / 2));
         }
         else
             cmax = a[i];
