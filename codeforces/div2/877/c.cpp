@@ -23,7 +23,7 @@ void printMatrix(const Matrix &matrix)
     {
         for (const auto &elem : row)
         {
-            cout << setw(5) << elem << " "; // Adjust width for better formatting
+            cout << elem << " "; // Adjust width for better formatting
         }
         cout << endl;
     }
@@ -43,10 +43,10 @@ void solve(unordered_set<int> primes)
             for (int j = 0; j < m; ++j)
                 mat[i][j] = i * n + j + 1;
         }
-        vector<int> new_order{n / 2 + 1};
+        vector<int> new_order{n / 2};
         for (int j = 0; j < n / 2; ++j)
         {
-            new_order.push_back(1 + j);
+            new_order.push_back(j);
             new_order.push_back(n - 1 - j);
         }
         vector<vector<int>> mat_copy(n, vector<int>(m, 0));
@@ -62,7 +62,7 @@ void solve(unordered_set<int> primes)
         for (int i = 0; i < n; ++i)
         {
             for (int j = 0; j < m; ++j)
-                mat[i][j] = i * n + j + 1;
+                mat[i][j] = i + j * m + 1;
         }
         printMatrix(mat);
     }
@@ -71,7 +71,7 @@ void solve(unordered_set<int> primes)
         for (int i = 0; i < n; ++i)
         {
             for (int j = 0; j < m; ++j)
-                mat[i][j] = i + j * m + 1;
+                mat[i][j] = i * n + j + 1;
         }
         printMatrix(mat);
     }
@@ -84,7 +84,6 @@ void solve(unordered_set<int> primes)
         }
         printMatrix(mat);
     }
-
     cout << endl;
 }
 
@@ -96,14 +95,13 @@ int main()
     unordered_set<int> prime_set;
     vector<bool> primes(1000, true);
 
-    for (int i = 1; i < 501; ++i)
+    for (int i = 2; i < 501; ++i)
     {
-
-        if (primes[i])
+        if (primes[i - 1])
         {
-            for (int x = 1; x < 1000 / i; x++)
+            for (int x = 2; x < 1000 / i; x++)
             {
-                primes[x * i] = false;
+                primes[x * i - 1] = false;
             }
         }
     }
@@ -114,6 +112,11 @@ int main()
         if (primes[i])
             prime_set.insert(i + 1);
     }
+
+    // for (int p : prime_set)
+    // {
+    //     cout << p << endl;
+    // }
 
     while (t--)
         solve(prime_set);
