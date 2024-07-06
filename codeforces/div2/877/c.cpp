@@ -41,7 +41,7 @@ void solve(unordered_set<int> primes)
         for (int i = 0; i < n; ++i)
         {
             for (int j = 0; j < m; ++j)
-                mat[i][j] = i * n + j + 1;
+                mat[i][j] = i * m + j + 1;
         }
         vector<int> new_order{n / 2};
         for (int j = 0; j < n / 2; ++j)
@@ -62,7 +62,7 @@ void solve(unordered_set<int> primes)
         for (int i = 0; i < n; ++i)
         {
             for (int j = 0; j < m; ++j)
-                mat[i][j] = i + j * m + 1;
+                mat[i][j] = i + j * n + 1;
         }
         printMatrix(mat);
     }
@@ -71,7 +71,7 @@ void solve(unordered_set<int> primes)
         for (int i = 0; i < n; ++i)
         {
             for (int j = 0; j < m; ++j)
-                mat[i][j] = i * n + j + 1;
+                mat[i][j] = i * m + j + 1;
         }
         printMatrix(mat);
     }
@@ -80,7 +80,7 @@ void solve(unordered_set<int> primes)
         for (int i = 0; i < n; ++i)
         {
             for (int j = 0; j < m; ++j)
-                mat[i][j] = i + j * m + 1;
+                mat[i][j] = i + j * n + 1;
         }
         printMatrix(mat);
     }
@@ -112,12 +112,7 @@ int main()
         if (primes[i])
             prime_set.insert(i + 1);
     }
-
-    // for (int p : prime_set)
-    // {
-    //     cout << p << endl;
-    // }
-
+    
     while (t--)
         solve(prime_set);
 }
