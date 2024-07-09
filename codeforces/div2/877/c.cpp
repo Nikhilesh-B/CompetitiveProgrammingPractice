@@ -62,7 +62,7 @@ void solve(unordered_set<int> primes)
         for (int i = 0; i < n; ++i)
         {
             for (int j = 0; j < m; ++j)
-                mat[i][j] = i + j * n + 1;
+                mat[i][j] = i * m + j + 1;
         }
         printMatrix(mat);
     }
@@ -71,10 +71,10 @@ void solve(unordered_set<int> primes)
         for (int i = 0; i < n; ++i)
         {
             for (int j = 0; j < m; ++j)
-                mat[i][j] = i * m + j + 1;
+                mat[i][j] = i + j * n + 1;
         }
         printMatrix(mat);
-    }
+        }
     else
     {
         for (int i = 0; i < n; ++i)
@@ -112,7 +112,7 @@ int main()
         if (primes[i])
             prime_set.insert(i + 1);
     }
-    
+
     while (t--)
         solve(prime_set);
 }

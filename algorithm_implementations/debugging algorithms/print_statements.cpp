@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <set>
 
 // Template function to print a vector of any type
 template <typename T>
@@ -10,6 +11,34 @@ void printVector(const std::vector<T> &vec)
         std::cout << elem << " ";
     }
     std::cout << std::endl;
+}
+
+template <typename T>
+void printVectorNL(const std::vector<T> &set)
+{
+    for (const auto &elem : set)
+    {
+        std::cout << elem << std::endl;
+    }
+}
+
+template <typename T>
+void printSet(const std::set<T> &set)
+{
+    for (const auto &elem : set)
+    {
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+}
+
+template <typename T>
+void printSetNL(const std::set<T> &set)
+{
+    for (const auto &elem : set)
+    {
+        std::cout << elem << std::endl;
+    }
 }
 
 int main()
