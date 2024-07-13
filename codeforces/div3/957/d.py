@@ -18,17 +18,17 @@ def solve(n, m, k, a):
             explored.add(current)
 
             if c_pos == -1 or a[c_pos] == "L":
-                for m in range(1, m+1):
-                    if c_pos+m == n:
-                        queue.append((c_pos+m, c_swim))
+                for j in range(1, m+1):
+                    if c_pos+j == n and (c_pos+j, c_swim) not in explored:
+                        queue.append((c_pos+j, c_swim))
                         break
-                    elif a[c_pos+m] != 'C':
-                        queue.append((c_pos+m, c_swim))
+                    elif a[c_pos+j] != 'C' and (c_pos+j, c_swim) not in explored:
+                        queue.append((c_pos+j, c_swim))
 
             if c_swim < k:
-                if c_pos+1 == n:
+                if c_pos+1 == n and (c_pos+1, c_swim+1) not in explored:
                     queue.append((c_pos+1, c_swim+1))
-                elif a[c_pos+1] != 'C':
+                elif a[c_pos+1] != 'C' and (c_pos+1, c_swim+1) not in explored:
                     queue.append((c_pos+1, c_swim+1))
 
     return "NO"
