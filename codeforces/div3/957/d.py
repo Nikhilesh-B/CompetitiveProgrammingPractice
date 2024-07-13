@@ -3,35 +3,41 @@ answers = []
 
 
 def solve(n, m, k, a):
-    goal = n
+    current_swim = 0
+    i = -1
 
-    queue = [(-1, 0)]
-    explored = set()
+    while i < n:
+        if current_swim > k:
+            return "NO"
 
-    while queue:
-        current = queue.pop(0)
-        c_pos = current[0]
-        c_swim = current[1]
-        if c_pos == goal:
-            return "YES"
-        if current not in explored:
-            explored.add(current)
+        if i == -1 or a[i] == "L":
+            jumped = False
+            for j in range(m, 0, -1):
+                if i + j == n or (i + j < n and a[i + j] == "L"):
+                    i += j
+                    jumped = True
+                    break
 
-            if c_pos == -1 or a[c_pos] == "L":
-                for j in range(1, m+1):
-                    if c_pos+j == n and (c_pos+j, c_swim) not in explored:
-                        queue.append((c_pos+j, c_swim))
+            if not jumped:
+                for j in range(m, 0, -1):
+                    if i + j < n and a[i + j] != 'C':
+                        i += j
+                        jumped = True
                         break
-                    elif a[c_pos+j] != 'C' and (c_pos+j, c_swim) not in explored:
-                        queue.append((c_pos+j, c_swim))
+            if jumped:
+                continue
 
-            if c_swim < k:
-                if c_pos+1 == n and (c_pos+1, c_swim+1) not in explored:
-                    queue.append((c_pos+1, c_swim+1))
-                elif a[c_pos+1] != 'C' and (c_pos+1, c_swim+1) not in explored:
-                    queue.append((c_pos+1, c_swim+1))
+        if a[i] == 'C':
+            return "NO"
 
-    return "NO"
+        else:
+            current_swim += 1
+            i += 1
+
+    if current_swim > k:
+        return "NO"
+
+    return "YES"
 
 
 for _ in range(t):
