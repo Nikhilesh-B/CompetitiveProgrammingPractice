@@ -11,25 +11,33 @@ for _ in range(t):
 
     factors_of_x = set()
 
-    for i in range(1, int(x ** 0.5) + 1):
+    for i in range(2, int(x ** 0.5) + 1):
         if x % i == 0:
             factors_of_x.add(i)
             factors_of_x.add(x // i)
-    
+
     factors_sofar = set()
     segments = 1
 
+    continue_flag = False
     for i in range(n):
         if a[i] in factors_of_x:
-            factors_sofar.add(a[i])
-            for factor in factors_of_x:
+            add_factors = []
+            for factor in factors_sofar:
                 if a[i] * factor < x:
-                    factors_sofar.add(a[i]*factor)
+                    add_factors.append(a[i]*factor)
                 elif a[i] * factor == x:
                     segments += 1
                     factors_sofar = set()
+                    continue_flag = True
                     break
-    
+            if not continue_flag:
+                for factor in add_factors:
+                    factors_sofar.add(factor)
+            else:
+                continue_flag = False
+            factors_sofar.add(a[i])
+
     answers.append(segments)
 
 for ans in answers:
